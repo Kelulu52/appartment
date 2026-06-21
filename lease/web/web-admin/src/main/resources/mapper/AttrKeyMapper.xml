@@ -4,4 +4,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.atguigu.lease.web.admin.mapper.AttrKeyMapper">
 
+    <select id="listAttrInfo" resultType="com.atguigu.lease.web.admin.vo.attr.AttrKeyVo">
+    select
+
+    from attr_key;
+    </select>
 </mapper>
