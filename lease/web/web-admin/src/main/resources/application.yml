@@ -22,7 +22,7 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 minio:
-  endpoint: http://192.168.61.133:9000/
+  endpoint: http://192.168.61.133:9000
   access-key: admin
   secret-key: Admin123!
   bucket-name: lease
