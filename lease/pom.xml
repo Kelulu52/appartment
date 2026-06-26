@@ -104,6 +104,11 @@
                 <artifactId>okhttp</artifactId>
                 <version>4.9.3</version> <!-- 或 4.8.1、4.10.0 等 -->
             </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-jsqlparser</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
