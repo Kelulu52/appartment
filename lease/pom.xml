@@ -30,7 +30,7 @@
         <mybatis-plus.version>3.5.13</mybatis-plus.version>
         <lombok.version>1.18.42</lombok.version>
         <minio.version>9.0.2</minio.version>
-        <knife4j.version>4.1.0</knife4j.version>
+        <knife4j.version>4.4.0</knife4j.version>
         <aliyun.sms.version>2.0.24</aliyun.sms.version>
         <easycaptcha.version>1.6.2</easycaptcha.version>
         <jwt.version>0.11.2</jwt.version>   <!-- jjwt 版本，与示例项目一致 -->
