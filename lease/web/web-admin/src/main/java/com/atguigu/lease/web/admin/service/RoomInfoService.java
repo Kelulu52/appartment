@@ -1,6 +1,7 @@
 package com.atguigu.lease.web.admin.service;
 
 import com.atguigu.lease.model.entity.RoomInfo;
+import com.atguigu.lease.model.enums.ReleaseStatus;
 import com.atguigu.lease.web.admin.vo.room.RoomDetailVo;
 import com.atguigu.lease.web.admin.vo.room.RoomItemVo;
 import com.atguigu.lease.web.admin.vo.room.RoomQueryVo;
@@ -19,4 +20,9 @@ public interface RoomInfoService extends IService<RoomInfo> {
     void saveOrUpdateRoomInfo(RoomSubmitVo roomSubmitVo);
 
     IPage<RoomItemVo> pageItem(Page<RoomItemVo> roomItemVoPage, RoomQueryVo queryVo);
+
+    RoomDetailVo getDetailById(Long id);
+
+    void removeRoomById(Long id);
+
 }
