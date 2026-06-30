@@ -10,6 +10,7 @@ import com.atguigu.lease.web.admin.mapper.SystemUserMapper;
 import com.atguigu.lease.web.admin.service.LoginService;
 import com.atguigu.lease.web.admin.vo.login.CaptchaVo;
 import com.atguigu.lease.web.admin.vo.login.LoginVo;
+import com.atguigu.lease.web.admin.vo.system.user.SystemUserInfoVo;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.wf.captcha.SpecCaptcha;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -62,5 +63,14 @@ public class LoginServiceImpl implements LoginService {
             throw new LeaseException(ResultCodeEnum.ADMIN_ACCOUNT_ERROR);
         }
         return JwtUtil.cteatToken(systemUser.getId(),systemUser.getUsername());
+    }
+
+    @Override
+    public SystemUserInfoVo getinfoById(Long userId) {
+        SystemUser systemUser = systemUserMapper.selectById(userId);
+        SystemUserInfoVo systemUserInfoVo = new SystemUserInfoVo();
+        systemUserInfoVo.setAvatarUrl(systemUser.getAvatarUrl());
+        systemUserInfoVo.setName(systemUser.getName());
+        return systemUserInfoVo;
     }
 }
