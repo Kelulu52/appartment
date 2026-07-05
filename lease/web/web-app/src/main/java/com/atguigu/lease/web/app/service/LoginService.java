@@ -7,4 +7,9 @@ public interface LoginService {
 
 
     void getCode(String phone);
+
+    String login(LoginVo loginVo);
+
+
+    UserInfoVo getUserInfoById(Long userId);
 }

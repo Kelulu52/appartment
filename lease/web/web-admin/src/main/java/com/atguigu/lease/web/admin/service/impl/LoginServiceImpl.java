@@ -11,7 +11,6 @@ import com.atguigu.lease.web.admin.service.LoginService;
 import com.atguigu.lease.web.admin.vo.login.CaptchaVo;
 import com.atguigu.lease.web.admin.vo.login.LoginVo;
 import com.atguigu.lease.web.admin.vo.system.user.SystemUserInfoVo;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.wf.captcha.SpecCaptcha;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +61,7 @@ public class LoginServiceImpl implements LoginService {
         if (!systemUser.getPassword().equals(DigestUtils.md5Hex(loginVo.getPassword()))){
             throw new LeaseException(ResultCodeEnum.ADMIN_ACCOUNT_ERROR);
         }
-        return JwtUtil.cteatToken(systemUser.getId(),systemUser.getUsername());
+        return JwtUtil.creatToken(systemUser.getId(),systemUser.getUsername());
     }
 
     @Override
