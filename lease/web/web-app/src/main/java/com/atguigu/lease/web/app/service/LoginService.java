@@ -6,4 +6,5 @@ import com.atguigu.lease.web.app.vo.user.UserInfoVo;
 public interface LoginService {
 
 
+    void getCode(String phone);
 }

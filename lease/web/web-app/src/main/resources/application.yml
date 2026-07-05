@@ -36,3 +36,9 @@ minio:
   bucket-name: lease
 springdoc:
   default-flat-param-object: true
+
+aliyun:
+  sms:
+    access-key-id: ${ALIYUN_ACCESS_KEY_ID}
+    access-key-secret: ${ALIYUN_ACCESS_KEY_SECRET}
+    endpoint: dypnsapi.aliyuncs.com
