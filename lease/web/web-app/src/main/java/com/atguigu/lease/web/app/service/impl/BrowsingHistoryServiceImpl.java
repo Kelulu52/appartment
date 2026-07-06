@@ -32,6 +32,27 @@ public class BrowsingHistoryServiceImpl extends ServiceImpl<BrowsingHistoryMappe
     public IPage<HistoryItemVo> pageItemVoByUserId(Page<HistoryItemVo> page, Long userId) {
         return browsingHistoryMapper.pageItemVoByUserId(page,userId);
     }
+
+    @Override
+    @Async
+    public void saveHistory(Long userId, Long id) {
+        System.out.println("lishi"+Thread.currentThread().getName());
+        LambdaQueryWrapper<BrowsingHistory> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(BrowsingHistory::getUserId, userId);
+        queryWrapper.eq(BrowsingHistory::getRoomId, id);
+        BrowsingHistory browsingHistory = browsingHistoryMapper.selectOne(queryWrapper);
+        if (browsingHistory == null) {
+            BrowsingHistory history = new BrowsingHistory();
+            history.setUserId(userId);
+            history.setRoomId(id);
+            history.setBrowseTime(new Date());
+            browsingHistoryMapper.insert(history);
+        }
+        else {
+            browsingHistory.setBrowseTime(new Date());
+            browsingHistoryMapper.updateById(browsingHistory);
+        }
+    }
 }
 
 

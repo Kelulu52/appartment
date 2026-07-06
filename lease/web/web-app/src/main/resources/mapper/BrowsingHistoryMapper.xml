@@ -26,7 +26,7 @@
                  left join apartment_info ai on ri.apartment_id = ai.id and ai.is_deleted = 0
         where bh.is_deleted = 0
           and bh.user_id = #{userId}
-        order by bh.browse_time
+        order by bh.browse_time desc
 
     </select>
     <select id="selectGraphVoByRoomId" resultType="com.atguigu.lease.web.app.vo.graph.GraphVo">

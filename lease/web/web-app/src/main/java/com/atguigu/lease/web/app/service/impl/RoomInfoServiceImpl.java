@@ -57,6 +57,8 @@ public class RoomInfoServiceImpl extends ServiceImpl<RoomInfoMapper, RoomInfo>
     private FeeValueMapper feeValueMapper;
     @Autowired
     private LeaseAgreementMapper leaseAgreementMapper;
+    @Autowired
+    private BrowsingHistoryService browsingHistoryService;
     @Override
     public IPage<RoomItemVo> pageItem(Page<RoomItemVo> page, RoomQueryVo queryVo) {
         return roomInfoMapper.pageItem(page,queryVo);
@@ -109,6 +111,8 @@ public class RoomInfoServiceImpl extends ServiceImpl<RoomInfoMapper, RoomInfo>
         appRoomDetailVo.setFeeValueVoList(feeValueVoList);
         appRoomDetailVo.setLeaseTermList(leaseTermList);
 
+        System.out.println("fangjian"+Thread.currentThread().getName());
+        browsingHistoryService.saveHistory(LoginUserHolder.getLoginUser().getUserId(),id);
         return appRoomDetailVo;
     }
 
