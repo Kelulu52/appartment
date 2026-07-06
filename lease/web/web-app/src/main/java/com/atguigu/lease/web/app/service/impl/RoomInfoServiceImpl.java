@@ -36,6 +36,12 @@ public class RoomInfoServiceImpl extends ServiceImpl<RoomInfoMapper, RoomInfo>
         implements RoomInfoService {
 
 
+    @Autowired
+    private RoomInfoMapper roomInfoMapper;
+    @Override
+    public IPage<RoomItemVo> pageItem(Page<RoomItemVo> page, RoomQueryVo queryVo) {
+        return roomInfoMapper.pageItem(page,queryVo);
+    }
 }
 
 
