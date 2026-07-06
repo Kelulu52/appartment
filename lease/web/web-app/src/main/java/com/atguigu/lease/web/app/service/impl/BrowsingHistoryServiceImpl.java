@@ -26,6 +26,12 @@ public class BrowsingHistoryServiceImpl extends ServiceImpl<BrowsingHistoryMappe
         implements BrowsingHistoryService {
 
 
+    @Autowired
+    private BrowsingHistoryMapper browsingHistoryMapper;
+    @Override
+    public IPage<HistoryItemVo> pageItemVoByUserId(Page<HistoryItemVo> page, Long userId) {
+        return browsingHistoryMapper.pageItemVoByUserId(page,userId);
+    }
 }
 
 

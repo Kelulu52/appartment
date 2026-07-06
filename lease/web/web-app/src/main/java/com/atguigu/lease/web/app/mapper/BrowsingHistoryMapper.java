@@ -14,6 +14,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 */
 public interface BrowsingHistoryMapper extends BaseMapper<BrowsingHistory> {
 
+    IPage<HistoryItemVo> pageItemVoByUserId(Page<HistoryItemVo> page, Long userId);
 }
 
 
