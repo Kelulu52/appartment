@@ -5,4 +5,23 @@
 <mapper namespace="com.atguigu.lease.web.app.mapper.ApartmentInfoMapper">
 
 
+    <select id="selectApartmentById" resultType="com.atguigu.lease.model.entity.ApartmentInfo">
+        select id,
+               name,
+               introduction,
+               district_id,
+               district_name,
+               city_id,
+               city_name,
+               province_id,
+               province_name,
+               address_detail,
+               latitude,
+               longitude,
+               phone,
+               is_release,
+               is_deleted
+        from apartment_info
+        where id = #{id}
+    </select>
 </mapper>

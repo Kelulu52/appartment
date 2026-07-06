@@ -7,6 +7,7 @@ import com.atguigu.lease.model.enums.ItemType;
 import com.atguigu.lease.web.app.mapper.*;
 import com.atguigu.lease.web.app.service.ApartmentInfoService;
 import com.atguigu.lease.web.app.vo.apartment.ApartmentDetailVo;
+import com.atguigu.lease.web.app.vo.apartment.ApartmentItemVo;
 import com.atguigu.lease.web.app.vo.graph.GraphVo;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
@@ -25,7 +26,60 @@ import java.util.List;
 public class ApartmentInfoServiceImpl extends ServiceImpl<ApartmentInfoMapper, ApartmentInfo>
         implements ApartmentInfoService {
 
+    @Autowired
+    private ApartmentInfoMapper apartmentInfoMapper;
+    @Autowired
+    private LabelInfoMapper labelInfoMapper;
+    @Autowired
+    private GraphInfoMapper graphInfoMapper;
+    @Autowired
+    private RoomInfoMapper roomInfoMapper;
+    @Autowired
+    private FacilityInfoMapper facilityInfoMapper;
 
+    @Override
+    public ApartmentItemVo selectApartmentItemVoById(Long id) {
+        ApartmentInfo apartmentInfo = apartmentInfoMapper.selectApartmentById(id);
+        List<LabelInfo> labelInfoList = labelInfoMapper.selectListByApartmentId(id);
+
+        List<GraphVo> graphVoList = graphInfoMapper.selectListByItemTypeAndId(ItemType.APARTMENT, id);
+        BigDecimal minRent = roomInfoMapper.selectMinRentByApartmentId(id);
+        ApartmentItemVo apartmentItemVo = new ApartmentItemVo();
+        BeanUtils.copyProperties(apartmentInfo, apartmentItemVo);
+        apartmentItemVo.setLabelInfoList(labelInfoList);
+        apartmentItemVo.setGraphVoList(graphVoList);
+        apartmentItemVo.setMinRent(minRent);
+        return apartmentItemVo;
+    }
+
+    @Override
+    public ApartmentDetailVo getDetailById(Long id) {
+        ApartmentInfo apartmentInfo = apartmentInfoMapper.selectApartmentById(id);
+        if (apartmentInfo == null) {
+            return null;
+        }
+
+        //2.查询GraphInfo
+        List<GraphVo> graphVoList = graphInfoMapper.selectListByItemTypeAndId(ItemType.APARTMENT, id);
+
+        //3.查询LabelInfo
+        List<LabelInfo> labelInfoList = labelInfoMapper.selectListByApartmentId(id);
+
+        //4.查询FacilityInfo
+        List<FacilityInfo> facilityInfoList = facilityInfoMapper.selectListByApartmentId(id);
+
+        //5.查询公寓最低房租
+        BigDecimal minRent = roomInfoMapper.selectMinRentByApartmentId(id);
+        ApartmentDetailVo appApartmentDetailVo = new ApartmentDetailVo();
+
+        BeanUtils.copyProperties(apartmentInfo, appApartmentDetailVo);
+        appApartmentDetailVo.setIsDelete(apartmentInfo.getIsDeleted() == 1);
+        appApartmentDetailVo.setGraphVoList(graphVoList);
+        appApartmentDetailVo.setLabelInfoList(labelInfoList);
+        appApartmentDetailVo.setFacilityInfoList(facilityInfoList);
+        appApartmentDetailVo.setMinRent(minRent);
+        return appApartmentDetailVo;
+    }
 }
 
 
