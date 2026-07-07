@@ -27,7 +27,7 @@ public class ViewAppointmentController {
     public Result saveOrUpdate(@RequestBody ViewAppointment viewAppointment) {
         viewAppointment.setUserId(LoginUserHolder.getLoginUser().getUserId());
         Long id = viewAppointment.getId();
-        if (id == null) {
+        if (id == null || viewAppointment.getAppointmentStatus()==null) {
             viewAppointment.setAppointmentStatus(AppointmentStatus.WAITING);
         }
         service.saveOrUpdate(viewAppointment);
