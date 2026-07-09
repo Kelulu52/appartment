@@ -58,21 +58,22 @@ public class ApartmentInfoServiceImpl extends ServiceImpl<ApartmentInfoMapper, A
         boolean isupdate=apartmentSubmitVo.getId()!=null;
         super.saveOrUpdate(apartmentSubmitVo);
         if(isupdate){
-            LambdaQueryWrapper<GraphInfo> GraphqueryWrapper=new LambdaQueryWrapper<>();
-            GraphqueryWrapper.eq(GraphInfo::getItemType, ItemType.APARTMENT);
-            GraphqueryWrapper.eq(GraphInfo::getId, apartmentSubmitVo.getId());
-            graphInfoService.remove(GraphqueryWrapper);
+            LambdaQueryWrapper<GraphInfo> graphWrapper = new LambdaQueryWrapper<>();
+            graphWrapper.eq(GraphInfo::getItemType, ItemType.APARTMENT)
+                    .eq(GraphInfo::getItemId, apartmentSubmitVo.getId());
+            graphInfoService.remove(graphWrapper);
+
 
             LambdaQueryWrapper<ApartmentFacility> apartmentFacilityQueryWrapper = new LambdaQueryWrapper<>();
-            apartmentFacilityQueryWrapper.eq(ApartmentFacility::getId, apartmentSubmitVo.getId());
+            apartmentFacilityQueryWrapper.eq(ApartmentFacility::getApartmentId, apartmentSubmitVo.getId());
             apartmentFacilityService.remove(apartmentFacilityQueryWrapper);
 
             LambdaQueryWrapper<ApartmentLabel> apartmentLabelLambdaQueryWrapper = new LambdaQueryWrapper<>();
-            apartmentLabelLambdaQueryWrapper.eq(ApartmentLabel::getId, apartmentSubmitVo.getId());
+            apartmentLabelLambdaQueryWrapper.eq(ApartmentLabel::getApartmentId, apartmentSubmitVo.getId());
             apartmentLabelService.remove(apartmentLabelLambdaQueryWrapper);
 
             LambdaQueryWrapper<ApartmentFeeValue> apartmentFeeValueLambdaQueryWrapper = new LambdaQueryWrapper<>();
-            apartmentFeeValueLambdaQueryWrapper.eq(ApartmentFeeValue::getId, apartmentSubmitVo.getId());
+            apartmentFeeValueLambdaQueryWrapper.eq(ApartmentFeeValue::getApartmentId, apartmentSubmitVo.getId());
             apartmentFeeValueService.remove(apartmentFeeValueLambdaQueryWrapper);
         }
         List<GraphVo> graphVoList = apartmentSubmitVo.getGraphVoList();
